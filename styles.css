@@ -27,6 +27,8 @@
 }
 
 html {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 84px;
   scroll-behavior: smooth;
 }
 
@@ -820,6 +822,8 @@ h1 span {
   overflow: hidden;
   padding-block: clamp(96px, 10vw, 150px);
   background: linear-gradient(135deg, #080808, #121315 54%, #060606);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .team-section::before {
@@ -839,6 +843,13 @@ h1 span {
 .team-section > .split {
   width: 100%;
   align-items: center;
+}
+
+.dark-flow-panel {
+  opacity: var(--panel-opacity, 1);
+  transform: translate3d(0, var(--panel-y, 0px), 0) scale(var(--panel-scale, 1));
+  transition: opacity 120ms linear, transform 120ms linear;
+  will-change: opacity, transform;
 }
 
 .team-section::after {
@@ -1079,6 +1090,8 @@ h1 span {
   padding-block: clamp(96px, 10vw, 150px);
   background: linear-gradient(135deg, #080808, #121315 54%, #060606);
   color: #fff;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .section-dark::before {
@@ -1253,6 +1266,11 @@ h1 span {
 .scroll-flow.is-visible {
   opacity: var(--flow-opacity, 1);
   transform: translate3d(0, var(--flow-y, 0px), 0);
+}
+
+.dark-flow-panel.is-visible {
+  opacity: var(--panel-opacity, 1);
+  transform: translate3d(0, var(--panel-y, 0px), 0) scale(var(--panel-scale, 1));
 }
 
 @media (max-width: 960px) {
@@ -1435,6 +1453,11 @@ h1 span {
   .reveal {
     opacity: 1;
     filter: none;
+    transform: none;
+  }
+
+  .dark-flow-panel {
+    opacity: 1;
     transform: none;
   }
 }

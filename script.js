@@ -2,6 +2,8 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const nav = document.querySelector("[data-nav]");
 const header = document.querySelector("[data-header]");
 const scrollProgress = document.querySelector(".scroll-progress");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
 
 if (menuToggle && nav) {
   menuToggle.addEventListener("click", () => {
@@ -115,12 +117,48 @@ if (revealTargets.length) {
   }
 }
 
-const flowTargets = document.querySelectorAll(".section-heading, .method-layout > div:first-child, .cta-inner");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const transitionPanels = document.querySelectorAll(".team-section > .split, .section-dark > .method-layout");
+
+if (transitionPanels.length && !reduceMotion) {
+  let panelFrame = null;
+
+  transitionPanels.forEach((panel) => panel.classList.add("dark-flow-panel"));
+
+  const updatePanels = () => {
+    panelFrame = null;
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const viewportCenter = viewportHeight / 2;
+
+    transitionPanels.forEach((panel) => {
+      const rect = panel.getBoundingClientRect();
+      const panelCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(panelCenter - viewportCenter);
+      const progress = clampValue(1 - distance / (viewportHeight * 0.48), 0, 1);
+      const direction = panelCenter < viewportCenter ? -1 : 1;
+      const y = (1 - progress) * 58 * direction;
+      const scale = 0.97 + progress * 0.03;
+
+      panel.style.setProperty("--panel-opacity", progress.toFixed(3));
+      panel.style.setProperty("--panel-y", `${y.toFixed(2)}px`);
+      panel.style.setProperty("--panel-scale", scale.toFixed(3));
+    });
+  };
+
+  const requestPanels = () => {
+    if (panelFrame === null) {
+      panelFrame = window.requestAnimationFrame(updatePanels);
+    }
+  };
+
+  updatePanels();
+  window.addEventListener("scroll", requestPanels, { passive: true });
+  window.addEventListener("resize", requestPanels);
+}
+
+const flowTargets = document.querySelectorAll(".section-muted > .section-heading, #conteudo > .section-heading, .cta-inner");
 
 if (flowTargets.length && !reduceMotion) {
   let flowFrame = null;
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   flowTargets.forEach((element) => element.classList.add("scroll-flow"));
 
@@ -134,8 +172,8 @@ if (flowTargets.length && !reduceMotion) {
       }
 
       const rect = element.getBoundingClientRect();
-      const entering = clamp((viewportHeight - rect.top) / (viewportHeight * 0.28), 0, 1);
-      const leaving = clamp((rect.bottom - viewportHeight * 0.14) / (viewportHeight * 0.34), 0, 1);
+      const entering = clampValue((viewportHeight - rect.top) / (viewportHeight * 0.28), 0, 1);
+      const leaving = clampValue((rect.bottom - viewportHeight * 0.14) / (viewportHeight * 0.34), 0, 1);
       const opacity = Math.min(entering, leaving);
       const yDirection = rect.top < viewportHeight * 0.18 ? -1 : 1;
       const offset = (1 - opacity) * 22 * yDirection;
