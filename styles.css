@@ -372,12 +372,46 @@ h1 span {
 }
 
 .section-muted {
+  position: relative;
+  isolation: isolate;
   background:
     linear-gradient(180deg, #f8f8f5, #ecece7);
   color: #090909;
 }
 
+.section-muted::before,
+#conteudo::before {
+  position: absolute;
+  inset: -170px 0 auto;
+  z-index: 0;
+  height: 260px;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 82% 8%, rgba(216, 154, 0, 0.16), transparent 33%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0), rgba(248, 248, 245, 0.72) 48%, #f8f8f5 78%);
+}
+
+.section-muted::after,
+#conteudo::after {
+  position: absolute;
+  top: -92px;
+  right: clamp(22px, 12vw, 220px);
+  z-index: 0;
+  width: min(42vw, 560px);
+  aspect-ratio: 2.4;
+  border: 1px solid rgba(216, 154, 0, 0.24);
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0;
+  content: "";
+  pointer-events: none;
+  transform: rotate(-2deg);
+  animation: transitionDrift 8s ease-in-out infinite alternate;
+}
+
 .team-section {
+  position: relative;
   overflow: hidden;
   background:
     radial-gradient(circle at 0% 0%, rgba(216, 154, 0, 0.12), transparent 24%),
@@ -386,16 +420,37 @@ h1 span {
 
 .team-section::before {
   position: absolute;
-  inset: 0;
+  inset: -150px 0 0;
+  z-index: 0;
   content: "";
   background:
+    linear-gradient(180deg, rgba(248, 248, 245, 0), rgba(5, 5, 5, 0.96) 15%, rgba(5, 5, 5, 0) 42%),
     repeating-linear-gradient(90deg, transparent 0 92px, rgba(255, 255, 255, 0.04) 93px, transparent 94px),
     radial-gradient(ellipse at 93% 13%, transparent 0 35%, rgba(255, 255, 255, 0.08) 35.2% 35.6%, transparent 35.8% 100%);
   pointer-events: none;
 }
 
+.team-section::after,
+.section-dark::after {
+  position: absolute;
+  top: -82px;
+  left: clamp(20px, 8vw, 160px);
+  z-index: 0;
+  width: min(38vw, 520px);
+  aspect-ratio: 2.2;
+  border: 1px solid rgba(216, 154, 0, 0.2);
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0;
+  content: "";
+  pointer-events: none;
+  transform: rotate(3deg);
+  animation: transitionDrift 9s ease-in-out infinite alternate-reverse;
+}
+
 .section-heading {
   position: relative;
+  z-index: 1;
   max-width: 890px;
   margin-bottom: 44px;
 }
@@ -445,6 +500,8 @@ h1 span {
 }
 
 .area-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
@@ -608,11 +665,15 @@ h1 span {
 }
 
 #conteudo {
+  position: relative;
+  isolation: isolate;
   background: var(--paper);
   color: #070707;
 }
 
 .insight-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
@@ -749,6 +810,21 @@ h1 span {
     padding-top: 118px;
   }
 
+  .section-muted::before,
+  #conteudo::before {
+    top: -120px;
+    height: 190px;
+  }
+
+  .section-muted::after,
+  #conteudo::after,
+  .team-section::after,
+  .section-dark::after {
+    top: -54px;
+    width: 78vw;
+    opacity: 0.72;
+  }
+
   .name {
     font-size: clamp(38px, 11vw, 54px);
   }
@@ -801,5 +877,15 @@ h1 span {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+@keyframes transitionDrift {
+  from {
+    transform: translate3d(-10px, 0, 0) rotate(-2deg);
+  }
+
+  to {
+    transform: translate3d(12px, 8px, 0) rotate(2deg);
   }
 }
