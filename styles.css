@@ -833,7 +833,26 @@ h1 span {
   pointer-events: none;
 }
 
-.team-section::after,
+.team-section::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 1;
+  height: clamp(92px, 9vw, 142px);
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, transparent 0%, rgba(255, 178, 26, 0) 30%, rgba(255, 178, 26, 0.82) 50%, rgba(255, 178, 26, 0) 70%, transparent 100%),
+    linear-gradient(180deg, rgba(9, 9, 9, 0), rgba(9, 9, 9, 0.82) 46%, rgba(9, 9, 9, 0));
+  background-size: 72px 72px, 72px 72px, 180% 2px, 100% 100%;
+  background-position: 0 0, 0 0, -120% 50%, center;
+  box-shadow: inset 0 -1px rgba(216, 154, 0, 0.24);
+  animation: transitionScan 4.8s ease-in-out infinite;
+}
+
 .section-dark::after {
   position: absolute;
   top: -82px;
@@ -1338,11 +1357,17 @@ h1 span {
 
   .section-muted::after,
   #conteudo::after,
-  .team-section::after,
   .section-dark::after {
     top: 0;
     width: 78vw;
     opacity: 0.72;
+  }
+
+  .team-section::after {
+    top: auto;
+    width: auto;
+    height: 96px;
+    opacity: 1;
   }
 
   .section-dark {
@@ -1476,6 +1501,18 @@ h1 span {
 
   to {
     transform: translateX(42%);
+  }
+}
+
+@keyframes transitionScan {
+  0%,
+  18% {
+    background-position: 0 0, 0 0, -120% 50%, center;
+  }
+
+  58%,
+  100% {
+    background-position: 0 0, 0 0, 120% 50%, center;
   }
 }
 
