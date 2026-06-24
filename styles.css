@@ -243,7 +243,6 @@ address {
 }
 
 .hero::before,
-.section-dark::before,
 .cta-section::before {
   position: absolute;
   inset: 0;
@@ -258,6 +257,20 @@ address {
   background-size: 72px 72px, 72px 72px, 100% 100%, 100% 100%;
   background-position: 0 var(--grid-lock-y, 0px), 0 var(--grid-lock-y, 0px), center, center;
   mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
+}
+
+.team-section::before,
+.section-dark::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.036) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.036) 1px, transparent 1px);
+  background-size: 72px 72px, 72px 72px;
+  background-position: 0 var(--grid-lock-y, 0px), 0 var(--grid-lock-y, 0px);
 }
 
 .hero::after {
@@ -826,20 +839,6 @@ h1 span {
   scroll-snap-stop: always;
 }
 
-.team-section::before {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  content: "";
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px),
-    radial-gradient(circle at 9% 12%, rgba(216, 154, 0, 0.1), transparent 24%);
-  background-size: 72px 72px, 72px 72px, 100% 100%;
-  background-position: 0 var(--grid-lock-y, 0px), 0 var(--grid-lock-y, 0px), center;
-  pointer-events: none;
-}
-
 .team-section > .split {
   width: 100%;
   align-items: center;
@@ -1092,11 +1091,6 @@ h1 span {
   color: #fff;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-}
-
-.section-dark::before {
-  inset: 0;
-  mask-image: none;
 }
 
 .section-dark::after {
