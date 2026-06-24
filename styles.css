@@ -272,6 +272,17 @@ address {
   animation: slowArc 13s ease-in-out infinite alternate;
 }
 
+.ambient-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -483,6 +494,31 @@ h1 span {
   animation: caseFloat 7s ease-in-out infinite;
 }
 
+.case-window::after,
+.area-card::before,
+.lawyer-card::before,
+.method-list li::before,
+.insight-grid article::before,
+.premium-showcase article::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(255, 178, 26, 0.16), transparent 32%);
+  content: "";
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.case-window:hover::after,
+.area-card:hover::before,
+.lawyer-card:hover::before,
+.method-list li:hover::before,
+.insight-grid article:hover::before,
+.premium-showcase article:hover::before {
+  opacity: 1;
+}
+
 .case-window::before {
   position: absolute;
   inset: -1px;
@@ -500,6 +536,8 @@ h1 span {
 }
 
 .case-window__bar {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -537,6 +575,7 @@ h1 span {
 
 .case-window__screen {
   position: relative;
+  z-index: 1;
   padding: clamp(26px, 4vw, 40px);
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
@@ -681,6 +720,11 @@ h1 span {
     rgba(0, 0, 0, 0.22);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
   transition: transform 240ms ease, border-color 240ms ease, background 240ms ease;
+}
+
+.premium-showcase article > * {
+  position: relative;
+  z-index: 1;
 }
 
 .premium-showcase article::after {
@@ -890,6 +934,14 @@ h1 span {
   overflow: hidden;
 }
 
+.area-card > *,
+.lawyer-card > *,
+.method-list li > *,
+.insight-grid article > * {
+  position: relative;
+  z-index: 1;
+}
+
 .area-card:hover,
 .insight-grid article:hover {
   transform: translateY(-6px);
@@ -951,6 +1003,8 @@ h1 span {
 }
 
 .lawyer-card {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 104px 1fr;
   gap: 24px;
@@ -1034,6 +1088,8 @@ h1 span {
 }
 
 .method-list li {
+  position: relative;
+  overflow: hidden;
   padding: 24px;
   border: 1px solid rgba(216, 154, 0, 0.26);
   border-radius: 8px;
@@ -1070,6 +1126,8 @@ h1 span {
 }
 
 .insight-grid article {
+  position: relative;
+  overflow: hidden;
   min-height: 280px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 245, 241, 0.88));
