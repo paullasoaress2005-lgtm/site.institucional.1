@@ -41,6 +41,32 @@ if (scrollProgress) {
   window.addEventListener("resize", updateProgress);
 }
 
+const gridLockedSections = document.querySelectorAll(".hero, .team-section, .section-dark, .cta-section");
+
+if (gridLockedSections.length) {
+  let gridFrame = null;
+
+  const updateGridLock = () => {
+    gridFrame = null;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+
+    gridLockedSections.forEach((section) => {
+      const offset = scrollY - section.offsetTop;
+      section.style.setProperty("--grid-lock-y", `${offset.toFixed(2)}px`);
+    });
+  };
+
+  const requestGridLock = () => {
+    if (gridFrame === null) {
+      gridFrame = window.requestAnimationFrame(updateGridLock);
+    }
+  };
+
+  updateGridLock();
+  window.addEventListener("scroll", requestGridLock, { passive: true });
+  window.addEventListener("resize", requestGridLock);
+}
+
 if (window.matchMedia("(pointer: fine)").matches) {
   const spotlightTargets = document.querySelectorAll(
     ".case-window, .premium-showcase article, .area-card, .lawyer-card, .method-list li, .insight-grid article"

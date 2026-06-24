@@ -253,9 +253,8 @@ address {
     linear-gradient(90deg, rgba(255, 255, 255, 0.038) 1px, transparent 1px),
     radial-gradient(circle at 14% 16%, rgba(216, 154, 0, 0.09), transparent 24%),
     radial-gradient(circle at 86% 20%, rgba(255, 255, 255, 0.045), transparent 22%);
-  background-attachment: fixed, fixed, scroll, scroll;
   background-size: 72px 72px, 72px 72px, 100% 100%, 100% 100%;
-  background-position: 0 0, 0 0, center, center;
+  background-position: 0 var(--grid-lock-y, 0px), 0 var(--grid-lock-y, 0px), center, center;
   mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
 }
 
@@ -831,9 +830,8 @@ h1 span {
     linear-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px),
     radial-gradient(circle at 9% 12%, rgba(216, 154, 0, 0.1), transparent 24%);
-  background-attachment: fixed, fixed, scroll;
   background-size: 72px 72px, 72px 72px, 100% 100%;
-  background-position: 0 0, 0 0, center;
+  background-position: 0 var(--grid-lock-y, 0px), 0 var(--grid-lock-y, 0px), center;
   pointer-events: none;
 }
 
@@ -852,7 +850,6 @@ h1 span {
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, transparent 0%, rgba(255, 178, 26, 0) 30%, rgba(255, 178, 26, 0.82) 50%, rgba(255, 178, 26, 0) 70%, transparent 100%),
     linear-gradient(180deg, rgba(9, 9, 9, 0), rgba(9, 9, 9, 0.82) 46%, rgba(9, 9, 9, 0));
-  background-attachment: fixed, fixed, scroll, scroll;
   background-size: 72px 72px, 72px 72px, 180% 2px, 100% 100%;
   background-position: 0 0, 0 0, -120% 50%, center;
   box-shadow: inset 0 -1px rgba(216, 154, 0, 0.24);
@@ -1439,6 +1436,7 @@ h1 span {
 
   .reveal {
     opacity: 1;
+    filter: none;
     transform: none;
   }
 }
