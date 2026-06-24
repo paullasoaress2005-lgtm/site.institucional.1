@@ -823,7 +823,7 @@ h1 span {
 .team-section {
   position: relative;
   overflow: hidden;
-  padding-bottom: clamp(132px, 13vw, 190px);
+  padding-bottom: clamp(104px, 10vw, 150px);
   background:
     radial-gradient(circle at 0% 0%, rgba(216, 154, 0, 0.12), transparent 24%),
     linear-gradient(135deg, #090909, #161719);
@@ -1051,12 +1051,23 @@ h1 span {
 
 .section-dark {
   position: relative;
-  padding-top: clamp(82px, 10vw, 132px);
+  margin-top: -86px;
+  padding-top: calc(clamp(82px, 10vw, 132px) + 86px);
   overflow: hidden;
   background:
     radial-gradient(circle at 6% 8%, rgba(216, 154, 0, 0.16), transparent 21%),
     linear-gradient(135deg, #090909, #161719 38%, #050505);
   color: #fff;
+}
+
+.section-dark::before {
+  inset: -86px 0 0;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
+}
+
+.section-dark::after {
+  top: -36px;
+  opacity: 0.62;
 }
 
 .section-dark .eyebrow {
@@ -1340,6 +1351,19 @@ h1 span {
     top: 0;
     width: 78vw;
     opacity: 0.72;
+  }
+
+  .section-dark {
+    margin-top: -58px;
+    padding-top: calc(clamp(82px, 10vw, 132px) + 58px);
+  }
+
+  .section-dark::before {
+    inset: -58px 0 0;
+  }
+
+  .section-dark::after {
+    top: -26px;
   }
 
   .name {
