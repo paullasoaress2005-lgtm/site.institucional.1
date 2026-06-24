@@ -783,6 +783,7 @@ h1 span {
   position: absolute;
   inset: 0 0 auto;
   z-index: 0;
+  display: none;
   height: 2px;
   content: "";
   pointer-events: none;
@@ -798,6 +799,7 @@ h1 span {
   top: 0;
   right: clamp(22px, 12vw, 220px);
   z-index: 0;
+  display: none;
   width: min(42vw, 560px);
   aspect-ratio: 2.4;
   border: 1px solid rgba(216, 154, 0, 0.24);
@@ -841,6 +843,7 @@ h1 span {
   bottom: -1px;
   left: 0;
   z-index: 1;
+  display: none;
   height: clamp(92px, 9vw, 142px);
   content: "";
   pointer-events: none;
@@ -861,6 +864,7 @@ h1 span {
   top: -82px;
   left: clamp(20px, 8vw, 160px);
   z-index: 0;
+  display: none;
   width: min(38vw, 520px);
   aspect-ratio: 2.2;
   border: 1px solid rgba(216, 154, 0, 0.2);
@@ -1229,15 +1233,22 @@ h1 span {
 
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 680ms ease, transform 680ms ease;
+  filter: blur(5px);
+  transform: translate3d(0, 34px, 0);
+  transition: opacity 760ms ease, transform 760ms ease, filter 760ms ease;
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 
 .reveal.is-visible {
   opacity: 1;
+  filter: blur(0);
   transform: translate3d(0, 0, 0);
+}
+
+.scroll-flow.is-visible {
+  opacity: var(--flow-opacity, 1);
+  transform: translate3d(0, var(--flow-y, 0px), 0);
 }
 
 @media (max-width: 960px) {
@@ -1362,27 +1373,6 @@ h1 span {
     min-height: auto;
   }
 
-  .section-muted::before,
-  #conteudo::before {
-    top: 0;
-    height: 2px;
-  }
-
-  .section-muted::after,
-  #conteudo::after,
-  .section-dark::after {
-    top: 0;
-    width: 78vw;
-    opacity: 0.72;
-  }
-
-  .team-section::after {
-    top: auto;
-    width: auto;
-    height: 96px;
-    opacity: 1;
-  }
-
   .section-dark {
     margin-top: -58px;
     padding-top: calc(clamp(82px, 10vw, 132px) + 58px);
@@ -1390,10 +1380,6 @@ h1 span {
 
   .section-dark::before {
     inset: -58px 0 0;
-  }
-
-  .section-dark::after {
-    top: -26px;
   }
 
   .name {

@@ -88,3 +88,44 @@ if (revealTargets.length) {
     revealTargets.forEach((element) => element.classList.add("is-visible"));
   }
 }
+
+const flowTargets = document.querySelectorAll(".section-heading, .method-layout > div:first-child, .cta-inner");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (flowTargets.length && !reduceMotion) {
+  let flowFrame = null;
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  flowTargets.forEach((element) => element.classList.add("scroll-flow"));
+
+  const updateFlow = () => {
+    flowFrame = null;
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+    flowTargets.forEach((element) => {
+      if (!element.classList.contains("is-visible")) {
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const entering = clamp((viewportHeight - rect.top) / (viewportHeight * 0.28), 0, 1);
+      const leaving = clamp((rect.bottom - viewportHeight * 0.14) / (viewportHeight * 0.34), 0, 1);
+      const opacity = Math.min(entering, leaving);
+      const yDirection = rect.top < viewportHeight * 0.18 ? -1 : 1;
+      const offset = (1 - opacity) * 22 * yDirection;
+
+      element.style.setProperty("--flow-opacity", opacity.toFixed(3));
+      element.style.setProperty("--flow-y", `${offset.toFixed(2)}px`);
+    });
+  };
+
+  const requestFlow = () => {
+    if (flowFrame === null) {
+      flowFrame = window.requestAnimationFrame(updateFlow);
+    }
+  };
+
+  updateFlow();
+  window.addEventListener("scroll", requestFlow, { passive: true });
+  window.addEventListener("resize", requestFlow);
+}
