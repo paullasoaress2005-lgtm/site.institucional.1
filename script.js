@@ -1,6 +1,7 @@
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const nav = document.querySelector("[data-nav]");
 const header = document.querySelector("[data-header]");
+const scrollProgress = document.querySelector(".scroll-progress");
 
 if (menuToggle && nav) {
   menuToggle.addEventListener("click", () => {
@@ -28,8 +29,20 @@ if (header) {
   window.addEventListener("scroll", updateHeader, { passive: true });
 }
 
+if (scrollProgress) {
+  const updateProgress = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    document.documentElement.style.setProperty("--scroll-progress", Math.min(Math.max(progress, 0), 1).toFixed(4));
+  };
+
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+}
+
 const revealTargets = document.querySelectorAll(
-  ".section-heading, .area-card, .lawyer-card, .method-list li, .insight-grid article, .cta-inner, .hero-actions, .proof-row"
+  ".section-heading, .case-window, .premium-showcase article, .area-card, .lawyer-card, .method-list li, .insight-grid article, .cta-inner, .hero-actions, .proof-row"
 );
 
 if (revealTargets.length) {
