@@ -739,28 +739,28 @@ h1 span {
 .section-muted {
   position: relative;
   isolation: isolate;
-  background:
-    linear-gradient(180deg, #f8f8f5, #ecece7);
+  background: #f8f8f5;
   color: #090909;
 }
 
 .section-muted::before,
 #conteudo::before {
   position: absolute;
-  inset: -170px 0 auto;
+  inset: 0 0 auto;
   z-index: 0;
-  height: 260px;
+  height: 2px;
   content: "";
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 82% 8%, rgba(216, 154, 0, 0.16), transparent 33%),
-    linear-gradient(180deg, rgba(5, 5, 5, 0), rgba(248, 248, 245, 0.72) 48%, #f8f8f5 78%);
+  background: linear-gradient(90deg, transparent, rgba(255, 178, 26, 0.72), transparent);
+  opacity: 0.84;
+  transform: translateX(-32%);
+  animation: dividerSweep 6s ease-in-out infinite alternate;
 }
 
 .section-muted::after,
 #conteudo::after {
   position: absolute;
-  top: -92px;
+  top: 0;
   right: clamp(22px, 12vw, 220px);
   z-index: 0;
   width: min(42vw, 560px);
@@ -771,7 +771,8 @@ h1 span {
   border-radius: 50% 50% 0 0;
   content: "";
   pointer-events: none;
-  transform: rotate(-2deg);
+  opacity: 0.58;
+  transform: translateY(-44%) rotate(-2deg);
   animation: transitionDrift 8s ease-in-out infinite alternate;
 }
 
@@ -790,7 +791,6 @@ h1 span {
   z-index: 0;
   content: "";
   background:
-    linear-gradient(180deg, rgba(248, 248, 245, 0), rgba(5, 5, 5, 0.96) 15%, rgba(5, 5, 5, 0) 42%),
     repeating-linear-gradient(90deg, transparent 0 92px, rgba(255, 255, 255, 0.04) 93px, transparent 94px),
     radial-gradient(ellipse at 93% 13%, transparent 0 35%, rgba(255, 255, 255, 0.08) 35.2% 35.6%, transparent 35.8% 100%);
   pointer-events: none;
@@ -997,11 +997,9 @@ h1 span {
 
 .section-dark {
   position: relative;
-  margin-top: -118px;
-  padding-top: calc(clamp(82px, 10vw, 132px) + 118px);
+  padding-top: clamp(82px, 10vw, 132px);
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(22, 23, 25, 0) 0%, rgba(9, 9, 9, 0.94) 18%, rgba(5, 5, 5, 1) 42%),
     radial-gradient(circle at 6% 8%, rgba(216, 154, 0, 0.16), transparent 21%),
     linear-gradient(135deg, #090909, #161719 38%, #050505);
   color: #fff;
@@ -1273,15 +1271,15 @@ h1 span {
 
   .section-muted::before,
   #conteudo::before {
-    top: -120px;
-    height: 190px;
+    top: 0;
+    height: 2px;
   }
 
   .section-muted::after,
   #conteudo::after,
   .team-section::after,
   .section-dark::after {
-    top: -54px;
+    top: 0;
     width: 78vw;
     opacity: 0.72;
   }
@@ -1414,6 +1412,16 @@ h1 span {
 
   50% {
     translate: 0 -10px;
+  }
+}
+
+@keyframes dividerSweep {
+  from {
+    transform: translateX(-42%);
+  }
+
+  to {
+    transform: translateX(42%);
   }
 }
 
